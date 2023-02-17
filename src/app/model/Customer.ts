@@ -1,5 +1,5 @@
 // Define the Customer entity
-class Customer {
+export class Customer {
   constructor(
     public id: number,
     public firstName: string,
@@ -13,7 +13,7 @@ class Customer {
 }
 
 // Define the CustomerRepository interface
-interface CustomerRepository {
+export interface CustomerRepository {
   getCustomers(): Customer[];
 
   getCustomerById(id: number): Customer;
@@ -24,7 +24,7 @@ interface CustomerRepository {
 }
 
 // Define the CustomerService class
-class CustomerService {
+export class CustomerService {
   constructor(private repository: CustomerRepository) {
   }
 
@@ -37,22 +37,7 @@ class CustomerService {
   }
 
   saveCustomer(customer: Customer): void {
-    if (customer.id === undefined) {
-      // If the customer ID is undefined, create a new customer
-      const newId = this.getCustomers().length + 1;
-      const newCustomer = new Customer(newId, customer.firstName, customer.lastName, customer.dateOfBirth, customer.phoneNumber, customer.email, customer.bankAccountNumber);
-      this.repository.saveCustomer(newCustomer);
-    } else {
-      // If the customer ID is defined, update an existing customer
-      const existingCustomer = this.repository.getCustomerById(customer.id);
-      existingCustomer.firstName = customer.firstName;
-      existingCustomer.lastName = customer.lastName;
-      existingCustomer.dateOfBirth = customer.dateOfBirth;
-      existingCustomer.phoneNumber = customer.phoneNumber;
-      existingCustomer.email = customer.email;
-      existingCustomer.bankAccountNumber = customer.bankAccountNumber;
-      this.repository.saveCustomer(existingCustomer);
-    }
+    this.repository.saveCustomer(customer);
   }
 
   deleteCustomer(customer: Customer): void {
