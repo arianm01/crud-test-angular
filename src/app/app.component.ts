@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {CustomerService} from "./services/customer.service";
+import {Customer, CustomerRepository} from "./model/Customer";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'crud-test-angular-latest';
+
+  constructor(private customerService: CustomerService) {
+
+  }
+
+  ngOnInit(): void {
+    console.log(this.customerService.getCustomers());
+  }
 }
